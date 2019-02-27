@@ -1,0 +1,51 @@
+<div id="uploadForm" class="card border-success mb-3" style="display: none;">
+  <div class="card-header">Upload Book Template</div>
+
+
+
+  <div class="card-body">
+  <div class="alert alert-dismissible alert-danger" id="upload-err-msg" style="display: none;">
+    </div>
+<form enctype="multipart/form-data" id="upload-book" method="POST">    
+    <div class="row">
+    <div class="col">
+    <div class="form-group">
+    <small class="text-muted"> Book Title </small>
+  <input class="form-control form-control-sm" type="text" id="book-title" name="book-title">
+    </div>
+    </div>
+    
+    <div class="col">
+    <div class="form-group">
+    <small class="text-muted"> Author </small>
+  <input class="form-control form-control-sm" type="text" id="book-author">
+    </div>
+    </div>
+
+    <div class="col">
+ <div class="form-group">
+    <small class="text-muted"> Data published </small>
+  <input class="form-control form-control-sm" type="text" id="book-date-published">
+    </div>
+    </div>
+
+    </div>
+    <div class="row">
+        <div class="col">
+         <div class="form-group">
+        <small class="text-muted"> Review </small>
+      <textarea class="form-control" rows="3" id="book-review"></textarea>
+    </div>
+        </div>
+        <div class="col">
+
+  <div class="form-group">
+    <input type="file" class="form-control-file" id="bookThumbnail"  name="bookThumbnail">
+  </div>
+       <button type="submit" id="btn-add-book" class="btn btn-success"><i class="fas fa-plus"></i> Add Book</button>
+
+        </div>
+    </div>
+</form>
+  </div>
+</div>

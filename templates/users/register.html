@@ -1,0 +1,54 @@
+{% extends "../layout.html" %}
+{% block content %}<br/>
+    <div class="container"> 
+        <div class="row justify-content-center">
+            <div class="card border-secondary mb-3" style="max-width: 20rem;">
+            <div class="card-header"><center>Register <i class="fas fa-user-plus"></i></center></div>
+            <div class="card-body">
+
+            {% if error %}
+            <div class="alert alert-dismissible alert-success">
+            {{ error }}
+            </div>
+            {% endif %}
+
+            <form method="POST">
+            <div class="form-group">
+            <small class="text-muted">username </small>
+            <input type="text" class="form-control"  name="username"
+            {% if username %}
+                value="{{ username }}"
+            {% endif %}
+            >
+             </div>
+
+            <div class="form-group">
+            <small class="text-muted">password </small>
+            <input type="password" class="form-control"  name="password">
+             </div>
+
+            <div class="form-group">
+            <small class="text-muted">re-type password </small>
+            <input type="password" class="form-control"  name="password2">
+             </div>
+
+            <div class="form-group">
+            <small class="text-muted">email </small>
+            <input type="text" class="form-control"  name="email"
+            {% if email %}
+                value="{{ email }}"
+            {% endif %}
+            >
+             </div>
+
+               <button type="submit" class="btn btn-success">Register</button>
+                <p class="card-text"><small class="text-muted">Already have an account? Login <a href="/users/login">here</a></small></p>
+
+            </form>
+
+            </div>
+            </div>
+            </div>
+    </div>
+
+{% endblock %}
