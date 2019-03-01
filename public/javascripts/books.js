@@ -1,6 +1,6 @@
-
 //loading gif
 const spinner        = $('#spinner-loading');
+const infoAlert      = $('#info-alert');
 
 //form selectors
 const uploadForm     = $( '#uploadForm' );
@@ -27,11 +27,20 @@ uploadFormAdd.on('submit' , () => {
     var uploadBookAuthor        = $( '#book-author' );
     var uploadBookDatePublished = $( '#book-date-published' );
     var uploadBookReview        = $( '#book-review' );
+    var uploadBookFile          = $( '#bookThumbnail' );
 
     var book_data_form = new FormData(this);
 
+    //gather data
+    book_data_form.append('bookTitle'     , uploadBookTitle.val());
+    book_data_form.append('bookAuthor'    , uploadBookAuthor.val());
+    book_data_form.append('datePublished' , uploadBookDatePublished.val());
+    book_data_form.append('bookReview'    , uploadBookReview.val());
+
+
+    //upload files if any
     try {
-        book_data_form.append('bookThumbnail' , files);
+        book_data_form.append('bookThumbnail' , files[0]);
     }  catch (e) {
         if(e.name != "ReferenceError") {
             console.log(e);
@@ -43,7 +52,7 @@ uploadFormAdd.on('submit' , () => {
       processData: false,
       contentType: false,
       cache      : false,
-      url        : "/books/upload-test",
+      url        : "/books/upload",
       data       : book_data_form,
       statusCode : {
           405 : (res) => { //failed
@@ -63,11 +72,16 @@ uploadFormAdd.on('submit' , () => {
               uploadBookAuthor.val('');
               uploadBookDatePublished.val('');
               uploadBookReview.val('');
+              uploadBookFile.val('');
 
               let success = res;
+              infoAlert.html(` <i class="far fa-check-circle"></i> ${success} `);
+              infoAlert.show();
+              setTimeout( () => infoAlert.fadeOut('slow') , 5000);
           },
-          500 : () => { //internal error
-            uploadErr.html(`<center><i class="fas fa-exclamation-triangle"></i> 500 Error: Contact a developer. </center>`);
+          500 : (res) => { //internal error
+            let err = res['responseText'];
+            uploadErr.html(`<center><i class="fas fa-exclamation-triangle"></i> 500 ${err} </center>`);
             uploadErr.show();
             spinner.hide();
             uploadForm.slideToggle("fast");

@@ -13,7 +13,14 @@ var bookSchema = new Schema({
     Image         :   {type: String, required: false},
     Rating        :   {type: Number, min: 0, max: 5 , required: false},
     Username      :   {type: String, required: true},
+    DatePosted    :   {type: Date,   required: false},
 
+});
+
+bookSchema.pre('save' , (next) => {
+    var user = this;
+    this.DatePosted = Date.now();
+    next();
 });
 
 //Validations

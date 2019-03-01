@@ -2,7 +2,7 @@ const mongoose  = require('mongoose');
 const bookModel = require('../models/books-model');
 
 
-var addBook = function (bookTitle, bookAuthor, datePublished, bookReview, imageName ,username) {
+var addBook = function (bookTitle, bookAuthor, datePublished, bookReview, imageName ,username, cb) {
     //create the model to add to db
     var book = new bookModel.bookModel( {
         Title         : bookTitle,
@@ -16,6 +16,8 @@ var addBook = function (bookTitle, bookAuthor, datePublished, bookReview, imageN
 
     //attempt to save to db
     book.save ( (err) => {
-            if(err) return err;
+            if(err) {return cb(err)}
+            else {return cb(null)};
     })
 }
+module.exports.addBook = addBook;
